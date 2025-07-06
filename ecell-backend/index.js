@@ -1,10 +1,11 @@
 const express = require('express');
 const connectDB = require('./db');
-const coreTeamRoutes = require('./routes/coreTeam');
+const CoreTeamRoutes = require('./routes/coreTeam');
+const FoundersRoute = require('./routes/founders');
 require('dotenv').config();
-const foundersRoute = require("./routes/founders");
-app.use("/api/founders", foundersRoute);
-const app = express();
+
+const app = express(); // ✅ Define app early
+
 const PORT = 5000;
 
 // Connect DB
@@ -14,7 +15,8 @@ connectDB();
 app.use(express.json());
 
 // Use the routes
-app.use('/api', coreTeamRoutes);
+app.use('/api/core-team', CoreTeamRoutes);
+app.use('/api/founders', FoundersRoute); // ✅ Now it's safe to use
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
